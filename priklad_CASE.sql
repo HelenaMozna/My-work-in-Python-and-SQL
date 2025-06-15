@@ -1,0 +1,12 @@
+SELECT 
+    I.*,
+    CASE 
+        WHEN C.ISSUE_ID IS NOT NULL THEN 'TEST Tiket'
+        ELSE 'Ostatní'
+    END AS QA
+FROM ISSUES I
+LEFT JOIN (
+    SELECT DISTINCT ISSUE_ID
+    FROM COMPONENTS
+    WHERE Komponenta LIKE N'%QA%'
+) C ON I.ID = C.ISSUE_ID
